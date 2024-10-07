@@ -30,7 +30,10 @@ jobs:
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:daguru_$IMAGE_TAG .
+        # Get the latest git tag for VERSION
+        VERSION=$(git describe --tags --abbrev=0)
+        # Build the Docker image with VERSION argument
+        docker build --build-arg VERSION=$VERSION -t $ECR_REGISTRY/$ECR_REPOSITORY:daguru_$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:daguru_$IMAGE_TAG
 
     - name: Output image URI
