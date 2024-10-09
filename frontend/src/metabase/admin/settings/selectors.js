@@ -172,19 +172,19 @@ export const ADMIN_SETTINGS_SECTIONS = {
       },
     ],
   },
-  updates: {
-    name: t`Updates`,
-    order: 30,
-    component: SettingsUpdatesForm,
-    settings: [
-      {
-        key: "check-for-updates",
-        display_name: t`Check for updates`,
-        type: "boolean",
-      },
-    ],
-    adminOnly: true,
-  },
+  // updates: {
+  //   name: t`Updates`,
+  //   order: 30,
+  //   component: SettingsUpdatesForm,
+  //   settings: [
+  //     {
+  //       key: "check-for-updates",
+  //       display_name: t`Check for updates`,
+  //       type: "boolean",
+  //     },
+  //   ],
+  //   adminOnly: true,
+  // },
   email: {
     name: t`Email`,
     order: 40,
@@ -285,12 +285,12 @@ export const ADMIN_SETTINGS_SECTIONS = {
     component: SlackSettings,
     settings: [],
   },
-  notifications: {
-    name: t`Notification channels`,
-    order: 51,
-    component: NotificationSettings,
-    settings: [],
-  },
+  // notifications: {
+  //   name: t`Notification channels`,
+  //   order: 51,
+  //   component: NotificationSettings,
+  //   settings: [],
+  // },
   authentication: {
     name: t`Authentication`,
     order: 60,
@@ -299,9 +299,9 @@ export const ADMIN_SETTINGS_SECTIONS = {
       PLUGIN_ADMIN_SETTINGS_AUTH_TABS.length <= 1
         ? undefined
         : PLUGIN_ADMIN_SETTINGS_AUTH_TABS.map(tab => ({
-            ...tab,
-            isActive: tab.key === "authentication",
-          })),
+          ...tab,
+          isActive: tab.key === "authentication",
+        })),
     settings: [], // added by plugins
     adminOnly: true,
   },
@@ -424,27 +424,27 @@ export const ADMIN_SETTINGS_SECTIONS = {
       },
     ],
   },
-  "embedding-in-other-applications": {
-    key: "enable-embedding",
-    name: t`Embedding`,
-    order: 100,
-    settings: [
-      {
-        key: "enable-embedding",
-        display_name: t`Embedding`,
-        description: null,
-        widget: EmbeddingSwitchWidget,
-      },
-      {
-        key: "-static-embedding",
-        widget: StaticEmbeddingOptionCard,
-      },
-      {
-        key: "-interactive-embedding",
-        widget: InteractiveEmbeddingOptionCard,
-      },
-    ],
-  },
+  // "embedding-in-other-applications": {
+  //   key: "enable-embedding",
+  //   name: t`Embedding`,
+  //   order: 100,
+  //   settings: [
+  //     {
+  //       key: "enable-embedding",
+  //       display_name: t`Embedding`,
+  //       description: null,
+  //       widget: EmbeddingSwitchWidget,
+  //     },
+  //     {
+  //       key: "-static-embedding",
+  //       widget: StaticEmbeddingOptionCard,
+  //     },
+  //     {
+  //       key: "-interactive-embedding",
+  //       widget: InteractiveEmbeddingOptionCard,
+  //     },
+  //   ],
+  // },
   "embedding-in-other-applications/standalone": {
     settings: [
       {
@@ -523,12 +523,12 @@ export const ADMIN_SETTINGS_SECTIONS = {
       },
     ],
   },
-  license: {
-    name: t`License`,
-    order: 110,
-    component: SettingsLicense,
-    settings: [],
-  },
+  // license: {
+  //   name: t`License`,
+  //   order: 110,
+  //   component: SettingsLicense,
+  //   settings: [],
+  // },
   metabot: {
     name: t`Metabot`,
     order: 130,
@@ -584,13 +584,13 @@ export const ADMIN_SETTINGS_SECTIONS = {
       },
     ],
   },
-  cloud: {
-    name: t`Cloud`,
-    getHidden: settings => settings["token-features"]?.hosting === true,
-    order: 132,
-    component: CloudPanel,
-    settings: [],
-  },
+  // cloud: {
+  //   name: t`Cloud`,
+  //   getHidden: settings => settings["token-features"]?.hosting === true,
+  //   order: 132,
+  //   component: CloudPanel,
+  //   settings: [],
+  // },
 };
 
 export const getSectionsWithPlugins = _.once(() =>
