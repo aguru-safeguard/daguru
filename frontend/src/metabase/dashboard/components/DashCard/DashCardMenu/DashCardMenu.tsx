@@ -1,16 +1,9 @@
 import { useDisclosure } from "@mantine/hooks";
 import cx from "classnames";
-import { isValidElement, useState } from "react";
+import { useState } from "react";
 
-import type { SdkPluginsConfig } from "embedding-sdk";
-import { useInteractiveDashboardContext } from "embedding-sdk/components/public/InteractiveDashboard/context";
-import CS from "metabase/css/core/index.css";
-import {
-  canDownloadResults,
-  canEditQuestion,
-} from "metabase/dashboard/components/DashCard/DashCardMenu/utils";
+import { canDownloadResults, canEditQuestion } from "metabase/dashboard/components/DashCard/DashCardMenu/utils";
 import { getParameterValuesBySlugMap } from "metabase/dashboard/selectors";
-import { useStore } from "metabase/lib/redux";
 import { QueryDownloadPopover } from "metabase/query_builder/components/QueryDownloadPopover";
 import { useDownloadData } from "metabase/query_builder/components/QueryDownloadPopover/use-download-data";
 import {
@@ -50,20 +43,6 @@ export type DashCardMenuItem = {
   disabled?: boolean;
 } & MenuItemProps;
 
-function isDashCardMenuEmpty(plugins?: SdkPluginsConfig) {
-  const dashcardMenu = plugins?.dashboard?.dashcardMenu;
-
-  if (!plugins || !dashcardMenu || typeof dashcardMenu !== "object") {
-    return false;
-  }
-
-  return (
-    dashcardMenu?.withDownloads === false &&
-    dashcardMenu?.withEditLink === false &&
-    !dashcardMenu?.customItems?.length
-  );
-}
-
 export const DashCardMenu = ({
   question,
   result,
@@ -72,9 +51,6 @@ export const DashCardMenu = ({
   uuid,
   token,
 }: DashCardMenuProps) => {
-  const store = useStore();
-  const { plugins } = useInteractiveDashboardContext();
-
   const [{ loading: isDownloadingData }, handleDownload] = useDownloadData({
     question,
     result,
@@ -82,7 +58,6 @@ export const DashCardMenu = ({
     dashcardId,
     uuid,
     token,
-    params: getParameterValuesBySlugMap(store.getState()),
   });
 
   const [menuView, setMenuView] = useState<string | null>(null);
@@ -92,19 +67,7 @@ export const DashCardMenu = ({
     },
   });
 
-  if (isDashCardMenuEmpty(plugins)) {
-    return null;
-  }
-
   const getMenuContent = () => {
-    if (typeof plugins?.dashboard?.dashcardMenu === "function") {
-      return plugins.dashboard.dashcardMenu({ question: question.card() });
-    }
-
-    if (isValidElement(plugins?.dashboard?.dashcardMenu)) {
-      return plugins.dashboard.dashcardMenu;
-    }
-
     if (menuView === "download") {
       return (
         <QueryDownloadPopover

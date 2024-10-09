@@ -16,9 +16,6 @@ const ASSETS_PATH = __dirname + "/resources/frontend_client/app/assets";
 const FONTS_PATH = __dirname + "/resources/frontend_client/app/fonts";
 const SRC_PATH = __dirname + "/frontend/src/metabase";
 const LIB_SRC_PATH = __dirname + "/frontend/src/metabase-lib";
-const ENTERPRISE_SRC_PATH =
-  __dirname + "/enterprise/frontend/src/metabase-enterprise";
-const SDK_SRC_PATH = __dirname + "/enterprise/frontend/src/embedding-sdk";
 const TYPES_SRC_PATH = __dirname + "/frontend/src/metabase-types";
 const CLJS_SRC_PATH = __dirname + "/target/cljs_release";
 const CLJS_SRC_PATH_DEV = __dirname + "/target/cljs_dev";
@@ -221,11 +218,6 @@ const config = {
         process.env.MB_EDITION === "ee"
           ? ENTERPRISE_SRC_PATH + "/plugins"
           : SRC_PATH + "/lib/noop",
-      "ee-overrides":
-        process.env.MB_EDITION === "ee"
-          ? ENTERPRISE_SRC_PATH + "/overrides"
-          : SRC_PATH + "/lib/noop",
-      "embedding-sdk": SDK_SRC_PATH,
     },
   },
   cache: useFilesystemCache

@@ -8,7 +8,6 @@ import ss from "simple-statistics";
 import { t } from "ttag";
 import _ from "underscore";
 
-import { getMetabaseInstanceUrl } from "embedding-sdk/store/selectors";
 import LoadingSpinner from "metabase/components/LoadingSpinner";
 import CS from "metabase/css/core/index.css";
 import { formatValue } from "metabase/lib/formatting";
@@ -105,16 +104,12 @@ function shouldUseCompactFormatting(groups, formatMetric) {
 
 const mapStateToProps = state => ({
   isSdk: getIsEmbeddingSdk(state),
-  sdkMetabaseInstanceUrl: getMetabaseInstanceUrl(state),
 });
 
 const connector = connect(mapStateToProps, null);
 
 function getMapUrl(details, props) {
   if (details.builtin) {
-    if (props?.isSdk && props?.sdkMetabaseInstanceUrl) {
-      return new URL(details.url, props.sdkMetabaseInstanceUrl).href;
-    }
     return details.url;
   }
   return "api/geojson/" + props.settings["map.region"];

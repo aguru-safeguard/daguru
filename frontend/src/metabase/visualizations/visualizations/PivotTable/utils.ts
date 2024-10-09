@@ -2,7 +2,6 @@ import { getIn } from "icepick";
 import { t } from "ttag";
 import _ from "underscore";
 
-import { DEFAULT_METABASE_COMPONENT_THEME } from "embedding-sdk/lib/theme";
 import { sumArray } from "metabase/lib/arrays";
 import { isPivotGroupColumn } from "metabase/lib/data_grid";
 import { measureText } from "metabase/lib/measure-text";
@@ -107,7 +106,7 @@ export function getLeftHeaderWidths({
 }: GetLeftHeaderWidthsProps) {
   const {
     fontFamily = "var(--mb-default-font-family)",
-    fontSize = DEFAULT_METABASE_COMPONENT_THEME.pivotTable.cell.fontSize,
+    fontSize = theme.other.pivotTable.cell.fontSize,
   } = font ?? {};
 
   const cellValues = getColumnValues(leftHeaderItems);

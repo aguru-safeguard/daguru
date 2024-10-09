@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import { t } from "ttag";
 
-import type { DashCardCustomMenuItem } from "embedding-sdk";
-import { useInteractiveDashboardContext } from "embedding-sdk/components/public/InteractiveDashboard/context";
 import { editQuestion } from "metabase/dashboard/actions";
 import type { DashCardMenuItem } from "metabase/dashboard/components/DashCard/DashCardMenu/DashCardMenu";
 import { useDispatch } from "metabase/lib/redux";
@@ -18,6 +16,7 @@ type DashCardMenuItemsProps = {
   isDownloadingData: boolean;
   onDownload: () => void;
 };
+
 export const DashCardMenuItems = ({
   question,
   result,
@@ -26,28 +25,15 @@ export const DashCardMenuItems = ({
 }: DashCardMenuItemsProps) => {
   const dispatch = useDispatch();
 
-  const {
-    plugins,
-    onEditQuestion = (question, mode = "notebook") =>
-      dispatch(editQuestion(question, mode)),
-  } = useInteractiveDashboardContext();
-
-  const dashcardMenuItems = plugins?.dashboard?.dashcardMenu as
-    | DashCardCustomMenuItem
-    | undefined;
-
-  const {
-    customItems = [],
-    withDownloads = true,
-    withEditLink = true,
-  } = dashcardMenuItems ?? {};
+  const onEditQuestion = (question: Question, mode = "notebook") =>
+    dispatch(editQuestion(question, mode));
 
   const menuItems = useMemo(() => {
     const items: (DashCardMenuItem & {
       key: string;
     })[] = [];
 
-    if (withEditLink && canEditQuestion(question)) {
+    if (canEditQuestion(question)) {
       const type = question.type();
       if (type === "question") {
         items.push({
@@ -75,7 +61,7 @@ export const DashCardMenuItems = ({
       }
     }
 
-    if (withDownloads && canDownloadResults(result)) {
+    if (canDownloadResults(result)) {
       items.push({
         key: "MB_DOWNLOAD_RESULTS",
         iconName: "download",
@@ -86,32 +72,13 @@ export const DashCardMenuItems = ({
       });
     }
 
-    if (customItems) {
-      items.push(
-        ...customItems.map(item => {
-          const customItem =
-            typeof item === "function"
-              ? item({ question: question.card() })
-              : item;
-
-          return {
-            ...customItem,
-            key: `MB_CUSTOM_${customItem.label}`,
-          };
-        }),
-      );
-    }
-
     return items;
   }, [
-    customItems,
     isDownloadingData,
     onDownload,
     onEditQuestion,
     question,
     result,
-    withDownloads,
-    withEditLink,
   ]);
 
   return menuItems.map(item => (

@@ -14,13 +14,6 @@ runs:
       run: yarn build-pure:cljs
       shell: bash
 
-    - name: Build Storybook
-      run: yarn build-storybook-embedding-sdk
-      shell: bash
-
-    - name: Serve Storybook
-      run: yarn http-server storybook-static -p 6006 &
-      shell: bash
 
     - name: Wait for Storybook to become available
       run: |

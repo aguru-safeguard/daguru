@@ -4,7 +4,7 @@ import { merge } from "icepick";
 import { useCallback, useMemo, useState } from "react";
 import type * as tippy from "tippy.js";
 
-import { EMBEDDING_SDK_PORTAL_ROOT_ELEMENT_ID } from "embedding-sdk/config";
+// Removed import for EMBEDDING_SDK_PORTAL_ROOT_ELEMENT_ID
 import EventSandbox from "metabase/components/EventSandbox";
 import { DEFAULT_Z_INDEX } from "metabase/components/Popover/constants";
 import { isCypressActive } from "metabase/env";
@@ -30,10 +30,7 @@ export interface ITippyPopoverProps extends TippyProps {
 const OFFSET: [number, number] = [0, 5];
 
 function appendTo() {
-  return (
-    document.getElementById(EMBEDDING_SDK_PORTAL_ROOT_ELEMENT_ID) ||
-    document.body
-  );
+  return document.body;
 }
 
 function getPopperOptions({

@@ -12,14 +12,6 @@ const mainAppStories = [
   "../frontend/**/*.stories.@(js|jsx|ts|tsx)",
 ];
 
-const embeddingSdkStories = [
-  "../enterprise/frontend/src/embedding-sdk/**/*.stories.tsx",
-];
-
-const sdkPackageTemplateJson = fs.readFileSync(
-  path.resolve("./enterprise/frontend/src/embedding-sdk/package.template.json"),
-  "utf-8",
-);
 const sdkPackageTemplateJsonContent = JSON.parse(sdkPackageTemplateJson);
 const EMBEDDING_SDK_VERSION = JSON.stringify(
   sdkPackageTemplateJsonContent.version,
@@ -29,7 +21,7 @@ module.exports = {
   core: {
     builder: "webpack5",
   },
-  stories: isEmbeddingSDK ? embeddingSdkStories : mainAppStories,
+  stories: mainAppStories,
   staticDirs: ["../resources/frontend_client"],
   addons: [
     "@storybook/addon-essentials",

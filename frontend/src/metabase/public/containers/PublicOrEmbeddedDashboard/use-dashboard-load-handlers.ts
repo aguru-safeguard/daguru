@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { usePrevious } from "react-use";
 
-import { getEventHandlers } from "embedding-sdk/store/selectors";
 import {
   getIsLoading,
   getIsLoadingWithoutCards,
@@ -25,15 +24,12 @@ export const useDashboardLoadHandlers = ({
   const previousIsLoading = usePrevious(isLoading);
   const previousIsLoadingWithoutCards = usePrevious(isLoadingWithoutCards);
 
-  const sdkEventHandlers = useSelector(getEventHandlers);
-
   useEffect(() => {
     if (
       !isLoadingWithoutCards &&
       previousIsLoadingWithoutCards &&
       !isErrorPage
     ) {
-      sdkEventHandlers?.onDashboardLoadWithoutCards?.(dashboard);
       onLoadWithoutCards?.(dashboard);
     }
   }, [
@@ -41,20 +37,17 @@ export const useDashboardLoadHandlers = ({
     isErrorPage,
     previousIsLoadingWithoutCards,
     dashboard,
-    sdkEventHandlers,
     onLoadWithoutCards,
   ]);
 
   useEffect(() => {
     if (!isLoading && previousIsLoading && !isErrorPage) {
-      sdkEventHandlers?.onDashboardLoad?.(dashboard);
       onLoad?.(dashboard);
     }
   }, [
     isLoading,
     isErrorPage,
     previousIsLoading,
-    sdkEventHandlers,
     dashboard,
     onLoad,
   ]);

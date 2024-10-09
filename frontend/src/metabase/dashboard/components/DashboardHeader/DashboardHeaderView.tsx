@@ -2,7 +2,7 @@ import type { JSX } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { t } from "ttag";
 
-import { useInteractiveDashboardContext } from "embedding-sdk/components/public/InteractiveDashboard/context";
+// Removed import from embedding-sdk
 import { isInstanceAnalyticsCollection } from "metabase/collections/utils";
 import EditBar from "metabase/components/EditBar";
 import CS from "metabase/css/core/index.css";
@@ -98,8 +98,6 @@ export function DashboardHeaderView({
     await dispatch(applyDraftParameterValues());
   }, [dispatch]);
 
-  const { dashboardActions } = useInteractiveDashboardContext();
-
   const _headerButtons = useMemo(
     () => (
       <HeaderButtonSection
@@ -109,7 +107,6 @@ export function DashboardHeaderView({
         <DashboardHeaderButtonRow
           canResetFilters={canResetFilters}
           onResetFilters={handleResetFilters}
-          dashboardActionKeys={dashboardActions}
           refreshPeriod={refreshPeriod}
           onRefreshPeriodChange={onRefreshPeriodChange}
           setRefreshElapsedHook={setRefreshElapsedHook}
@@ -125,7 +122,6 @@ export function DashboardHeaderView({
     [
       canResetFilters,
       handleResetFilters,
-      dashboardActions,
       hasNightModeToggle,
       isAnalyticsDashboard,
       isFullscreen,

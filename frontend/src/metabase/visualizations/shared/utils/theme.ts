@@ -1,4 +1,3 @@
-import { DEFAULT_METABASE_COMPONENT_THEME } from "embedding-sdk/lib/theme";
 import { color } from "metabase/lib/colors";
 import type { MantineThemeOther } from "metabase/ui";
 import { getSizeInPx } from "metabase/visualizations/shared/utils/size-in-px";
@@ -70,6 +69,6 @@ export function getVisualizationTheme({
 }
 
 export const DEFAULT_VISUALIZATION_THEME = getVisualizationTheme({
-  theme: DEFAULT_METABASE_COMPONENT_THEME,
+  theme: theme.other,
   isStaticViz: true,
 });
